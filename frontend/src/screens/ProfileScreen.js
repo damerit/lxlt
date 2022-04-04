@@ -28,6 +28,7 @@ export default function ProfileScreen() {
   const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [sellerName, setSellerName] = useState('');
 
   const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
     loadingUpdate: false,
@@ -43,6 +44,7 @@ export default function ProfileScreen() {
           name,
           email,
           password,
+          sellerName,
         },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -101,6 +103,15 @@ export default function ProfileScreen() {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
+        {userInfo.isSeller && (
+          <Form.Group className="mb-3" controlId="sellerName">
+            <Form.Label>Seller Name</Form.Label>
+            <Form.Control
+              value={sellerName}
+              onChange={(e) => setSellerName(e.target.value)}
+            />
+          </Form.Group>
+        )}
         <div className="mb-3">
           <Button type="submit" className="btn btn-primary">
             Update
